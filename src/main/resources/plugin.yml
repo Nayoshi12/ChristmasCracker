@@ -1,0 +1,6 @@
+name: ChristmasCracker
+version: @version@
+main: com.redrield.christmascracker.ChristmasCracker
+commands:
+  christmascracker:
+

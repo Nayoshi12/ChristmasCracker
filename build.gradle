@@ -1,0 +1,70 @@
+buildscript {
+    ext.kotlin_version = "1.1-M03"
+    repositories {
+        mavenCentral()
+        maven {
+            name = "kotlin-eap"
+            url = "http://dl.bintray.com/kotlin/kotlin-eap-1.1"
+        }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+plugins {
+    id "com.github.johnrengelman.shadow" version "1.2.3"
+}
+group = pluginGroup
+version = pluginVersion
+
+apply plugin: "kotlin"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "kotlin-eap"
+        url = "http://dl.bintray.com/kotlin/kotlin-eap-1.1"
+    }
+    maven {
+        name = 'destroystokyo-repo'
+        url = 'https://repo.destroystokyo.com/repository/maven-public/'
+    }
+    maven {
+        name = 'sonatype'
+        url = 'https://oss.sonatype.org/content/groups/public/'
+    }
+}
+
+configurations {
+    shade
+
+    compile.extendsFrom shade
+}
+
+shadowJar.configurations = [project.configurations.shade]
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'com.destroystokyo.paper:paper-api:1.11-R0.1-SNAPSHOT'
+
+    shade "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    shade "org.jetbrains.kotlin:kotlin-runtime:$kotlin_version"
+}
+
+import org.apache.tools.ant.filters.ReplaceTokens
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        filter ReplaceTokens, tokens: [version: version]
+    }
+}
+
+ task copyJar(type: Copy) {
+     from("build/libs/ChristmasCracker-1.0-SNAPSHOT-all.jar")
+     into("${System.getProperty("user.home")}/Desktop/PaperServer/plugins")
+ }
+
+build.dependsOn shadowJar
