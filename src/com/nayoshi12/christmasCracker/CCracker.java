@@ -1,5 +1,6 @@
 package com.nayoshi12.christmasCracker;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -20,7 +21,7 @@ public class CCracker {
     public CCracker(ChristmasCracker pl){
         this.pl = pl;
         this.material = Material.valueOf(pl.getConfig().getString("christmas-cracker.type"));
-        this.name = pl.getConfig().getString("christmas-cracker.name");
+        this.name = convertText(pl.getConfig().getString("christmas-cracker.name"));
         this.lore = pl.getConfig().getStringList("christmas-cracker.lore");
         this.durability = pl.getConfig().getInt("christmas-cracker.durability");
         this.unbreakable = pl.getConfig().getBoolean("christmas-cracker.unbreakable");
@@ -30,6 +31,9 @@ public class CCracker {
         itemMeta.setLore(lore);
         itemMeta.setUnbreakable(unbreakable);
         item.setItemMeta(itemMeta);
+    }
+    private String convertText(String msg){
+        return ChatColor.translateAlternateColorCodes('&',msg);
     }
     public ItemStack toItemStack(){
         return item;

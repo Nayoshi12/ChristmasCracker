@@ -28,6 +28,8 @@ public class ChristmasCracker extends JavaPlugin {
         rewardManager = new RewardManager(this);
         prefix = this.getConfig().getString("prefix");
         cCracker = new CCracker(this);
+        this.getCommand("christmascracker").setExecutor(new MainExecutor(this));
+        this.getServer().getPluginManager().registerEvents(new PlayerClickHandler(this),this);
 //        initItems();
 //        initChristmasCracker();
 //        initListener();

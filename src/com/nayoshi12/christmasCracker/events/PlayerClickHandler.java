@@ -30,12 +30,15 @@ public class PlayerClickHandler implements Listener {
     @EventHandler
     public void onPlayerClick(PlayerInteractAtEntityEvent e) {
 
-//        if (e.getHand() == EquipmentSlot.HAND) {
-//            Player p = e.getPlayer();
-//            e.getPlayer().sendMessage(e.getHand() + "");
-//            if (!(e.getRightClicked() instanceof Player)) return;
-//            e.getPlayer().sendMessage("1");
-//            Player at = (Player) e.getRightClicked();
+        if (e.getHand() == EquipmentSlot.HAND) {
+            Player p = e.getPlayer();
+            e.getPlayer().sendMessage(e.getHand() + "");
+            if (!(e.getRightClicked() instanceof Player)) return;
+            Player player = e.getPlayer();
+            Player at = (Player) e.getRightClicked();
+            pl.sendMessage(e.getPlayer(),"You clicked on " + at.getName() + "!");
+            pl.sendMessage(at,"You were clicked by "+ e.getPlayer().getName() + "!");
+            pl.sendMessage(e.getPlayer(),pl.getcCracker().toItemStack().isSimilar(player.getInventory().getItemInMainHand()) + "");
 //            p.sendMessage(pl.getChristmas().toString());
 //            //p.getInventory().setItemInMainHand(pl.getChristmas());
 //            if (p.getInventory().getItemInMainHand().getItemMeta().getLore().get(0).equalsIgnoreCase(pl.getChristmas().getItemMeta().getLore().get(0))) {
@@ -71,8 +74,9 @@ public class PlayerClickHandler implements Listener {
 //                }, 2L);
 //                e.getPlayer().sendMessage("7");
 //
-//            }
+//
 //        }
 
+        }
     }
 }

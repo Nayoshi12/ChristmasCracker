@@ -27,12 +27,11 @@ public class PluginReloadCommand extends SubCommand {
 
     @Override
     public void execute(CommandSender cs, String[] args) {
-//        if(cs.hasPermission("christmascracker.reload")) {
-//            pl.reloadConfig();
-//            pl.initItems();
-//            cs.sendMessage(ChatColor.GREEN + "The config has been reloaded!");
-//        }else {
-//            cs.sendMessage(ChatColor.RED + "You don't have permission to use this command");
-//        }
+        if(cs.hasPermission("christmascracker.reload")) {
+            pl.reloadConfig();
+            pl.sendMessage(cs,"The config has been reloaded!");
+        }else {
+            pl.sendMessage(cs,"You don't have permission to use this command");
+        }
     }
 }

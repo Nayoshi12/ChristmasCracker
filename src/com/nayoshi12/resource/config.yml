@@ -9,9 +9,9 @@ rewards:
     commands:
     - say potato
 christmas-cracker:
-  name: ""
+  name: "&cChristmas Cracker!"
   lore:
-  - ""
+  - "You can only get this during christmas!"
   durability: -1
   type: DIAMOND_PICKAXE
   unbreakable: true

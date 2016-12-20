@@ -2,6 +2,7 @@ package com.nayoshi12.christmasCracker;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -11,7 +12,7 @@ import java.util.Set;
 public class RewardManager {
     private ChristmasCracker pl;
     private FileConfiguration config;
-    private List<Reward> rewards;
+    private List<Reward> rewards = new ArrayList<>();
     public RewardManager(ChristmasCracker pl){
         this.pl = pl;
         this.config = pl.getConfig();
@@ -21,5 +22,6 @@ public class RewardManager {
             rewards.add(reward);
         }
     }
+
 
 }
