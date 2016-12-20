@@ -22,21 +22,18 @@ public class MainExecutor implements CommandExecutor{
     ChristmasCracker pl;
     public MainExecutor(ChristmasCracker pl){
         this.pl = pl;
-        sub.add(new PluginReloadCommand(pl));
-        sub.add(new GiveItemCommand(pl));
+        sub.add(new PluginReloadCommand(pl,"reload"));
+        sub.add(new GiveItemCommand(pl,"give"));
     }
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
         if(cmd.getName().equals("christmascracker")) {
 
             if(args.length != 0) {
-                switch(args[0].toLowerCase()){
-                    case "reload":
-                        sub.get(0).execute(sender,args);
-                        break;
-                    case "give":
-                        sub.get(1).execute(sender,args);
-                        break;
+                for(SubCommand cmdSub:sub){
+                    if(args[0].equalsIgnoreCase(cmdSub.getName())){
+                        cmdSub.execute(sender,args);
+                    }
                 }
             } else {
                 if(sender instanceof Player) {

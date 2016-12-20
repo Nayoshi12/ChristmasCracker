@@ -12,12 +12,24 @@ import org.bukkit.inventory.ItemStack;
  * Created by Matthew on 12/19/2016.
  */
 public class GiveItemCommand extends SubCommand {
-    ChristmasCracker pl;
-    public GiveItemCommand(ChristmasCracker pl){
+    private ChristmasCracker pl;
+    private String name;
+    public GiveItemCommand(ChristmasCracker pl,String name){
         this.pl = pl;
+        this.name = name;
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
     @Override
     public void execute(CommandSender cs, String[] args) {
+        if(!(cs instanceof Player))return;
+        pl.sendMessage(cs,"You got it boss");
+        Player player = (Player)cs;
+        player.getInventory().addItem(pl.getcCracker().toItemStack());
 //        if(cs.hasPermission("christmascracker.give")) {
 //            for(int i = 0; i<args.length;i++){
 //                cs.sendMessage(args[1]);

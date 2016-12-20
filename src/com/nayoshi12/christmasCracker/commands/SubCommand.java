@@ -9,4 +9,5 @@ import java.util.List;
  */
 abstract public class SubCommand {
      abstract public void execute(CommandSender cs, String[] args);
+     abstract public String getName();
 }

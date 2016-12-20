@@ -13,9 +13,16 @@ import org.bukkit.inventory.ItemStack;
  */
 public class PluginReloadCommand extends SubCommand {
 
-    ChristmasCracker pl;
-    public PluginReloadCommand(ChristmasCracker pl){
+    private ChristmasCracker pl;
+    private String name;
+    public PluginReloadCommand(ChristmasCracker pl,String name){
         this.pl = pl;
+        this.name = name;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override

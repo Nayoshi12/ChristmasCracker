@@ -21,11 +21,13 @@ public class ChristmasCracker extends JavaPlugin {
     private Random random = new Random();
     private RewardManager rewardManager;
     private String prefix;
+    private CCracker cCracker;
     @Override
     public void onEnable() {
         saveDefaultConfig();
         rewardManager = new RewardManager(this);
         prefix = this.getConfig().getString("prefix");
+        cCracker = new CCracker(this);
 //        initItems();
 //        initChristmasCracker();
 //        initListener();
@@ -39,6 +41,9 @@ public class ChristmasCracker extends JavaPlugin {
     }
     public void sendMessage(CommandSender cs,String msg){
         cs.sendMessage(ChatColor.translateAlternateColorCodes('&',prefix + " " + msg));
+    }
+    public CCracker getcCracker(){
+        return cCracker;
     }
 //    public void initItems(){
 //        rewards.clear();
