@@ -1,6 +1,7 @@
 package com.nayoshi12.christmasCracker.events;
 
 import com.nayoshi12.christmasCracker.ChristmasCracker;
+import com.nayoshi12.christmasCracker.Reward;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -15,6 +16,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -36,9 +38,38 @@ public class PlayerClickHandler implements Listener {
             if (!(e.getRightClicked() instanceof Player)) return;
             Player player = e.getPlayer();
             Player at = (Player) e.getRightClicked();
-            pl.sendMessage(e.getPlayer(),"You clicked on " + at.getName() + "!");
-            pl.sendMessage(at,"You were clicked by "+ e.getPlayer().getName() + "!");
-            pl.sendMessage(e.getPlayer(),pl.getcCracker().toItemStack().isSimilar(player.getInventory().getItemInMainHand()) + "");
+            pl.sendMessage(e.getPlayer(), "You clicked on " + at.getName() + "!");
+            pl.sendMessage(at, "You were clicked by " + e.getPlayer().getName() + "!");
+            if(!pl.getcCracker().toItemStack().isSimilar(player.getInventory().getItemInMainHand())) return;
+            pl.sendMessage(e.getPlayer(), pl.getcCracker().toItemStack().isSimilar(player.getInventory().getItemInMainHand()) + "");
+            List<Reward> rewards = pl.getRewardManager().getAllRewards();
+//            int randomB = pl.getRandom().nextInt(rewards.size()+1);
+//            int randomA = pl.getRandom().nextInt(rewards.size());
+//
+//            pl.sendMessage(player, randomNumber() + "");
+//            List<Reward> a1 = pl.getRewardManager().getRewards(randomNumber());
+//            List<Reward> a2 = pl.getRewardManager().getRewards(randomNumber());
+//            a1.get(pl.getRandom().nextInt(a1.size())).giveReward(player);
+//            a2.get(pl.getRandom().nextInt(a2.size())).giveReward(at);
+            rewards.get(pl.getRandom().nextInt(rewards.size())).giveReward(player);
+            rewards.get(pl.getRandom().nextInt(rewards.size())).giveReward(at);
+            if (p.getInventory().getItemInMainHand().getAmount() > 1) {
+                int d = p.getInventory().getItemInMainHand().getAmount();
+                p.getInventory().getItemInMainHand().setAmount(d - 1);
+            } else {
+                p.getInventory().setItemInMainHand(null);
+            }
+            Firework firework = (Firework) p.getWorld().spawnEntity(p.getLocation(), EntityType.FIREWORK);
+            FireworkMeta meta = firework.getFireworkMeta();
+            meta.addEffect(FireworkEffect.builder().trail(false).with(FireworkEffect.Type.BALL_LARGE).withColor(Color.GREEN).withFade(Color.RED).build());
+            e.getPlayer().sendMessage("6");
+            firework.setFireworkMeta(meta);
+            Bukkit.getScheduler().scheduleSyncDelayedTask(pl, new Runnable() {
+                @Override
+                public void run() {
+                    firework.detonate();
+                }
+            }, 3L);
 //            p.sendMessage(pl.getChristmas().toString());
 //            //p.getInventory().setItemInMainHand(pl.getChristmas());
 //            if (p.getInventory().getItemInMainHand().getItemMeta().getLore().get(0).equalsIgnoreCase(pl.getChristmas().getItemMeta().getLore().get(0))) {
@@ -78,5 +109,12 @@ public class PlayerClickHandler implements Listener {
 //        }
 
         }
+    }
+
+    private int randomNumber() {
+        double meth = Math.floor(10 * pl.getRandom().nextDouble());
+        int mee = (int) meth;
+        mee *= 10;
+        return mee;
     }
 }

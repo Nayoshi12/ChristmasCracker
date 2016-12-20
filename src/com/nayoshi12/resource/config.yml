@@ -1,13 +1,45 @@
 prefix: "&c[&aChristmas-Cracker&c]"
 rewards:
   1:
-    claim-msg: "&aYou have been goofed gg"
+    claim-msg: "&aYou are mentioned as a guest"
+    chance: 10
     commands:
-    - say nayoshi12
+    - say {player} is the guest
   2:
-    claim-msg: "&cYou have been goofed gg"
+    claim-msg: "&cYou recieved a diamond sword!"
+    chance: 20
     commands:
-    - say potato
+    - give {player} diamond_sword 1
+  3:
+    claim-msg: "&6You have reedeemed the dirty hoe"
+    chance: 50
+    commands:
+    - give {player} diamond_hoe 1
+  4:
+    claim-msg: "&7You are unlocky and got a wooden sword :("
+    chance: 30
+    commands:
+    - give {player} wooden_sword 1
+  5:
+    claim-msg: "&1You are dead!"
+    chance: 40
+    commands:
+    - kill {player}
+  4:
+    claim-msg: "&1You are bleesed by a lumberjack"
+    chance: 60
+    commands:
+    - give {player} diamond_axe 1
+  4:
+    claim-msg: "&1 Iowa wasn't getting any growth this season"
+    chance: 70
+    commands:
+    - give {player} potato 1
+  4:
+    claim-msg: "&1Why the potatoes?!?"
+    chance: 80
+    commands:
+    - give {player} potato 64
 christmas-cracker:
   name: "&cChristmas Cracker!"
   lore:
