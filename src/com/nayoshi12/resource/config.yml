@@ -1,3 +1,4 @@
+prefix: "&c[&aChristmas-Cracker&c]"
 rewards:
   1:
     claim-msg: "&aYou have been goofed gg"
@@ -7,7 +8,7 @@ rewards:
     claim-msg: "&cYou have been goofed gg"
     commands:
     - say potato
-christmascracker:
+christmas-cracker:
   name: ""
   lore:
   - ""

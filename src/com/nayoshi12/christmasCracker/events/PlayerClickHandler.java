@@ -30,48 +30,49 @@ public class PlayerClickHandler implements Listener {
     @EventHandler
     public void onPlayerClick(PlayerInteractAtEntityEvent e) {
 
-        if (e.getHand() == EquipmentSlot.HAND) {
-            Player p = e.getPlayer();
-            e.getPlayer().sendMessage(e.getHand() + "");
-            if (!(e.getRightClicked() instanceof Player)) return;
-            e.getPlayer().sendMessage("1");
-            Player at = (Player) e.getRightClicked();
-            p.sendMessage(pl.getChristmas().toString());
-            //p.getInventory().setItemInMainHand(pl.getChristmas());
-            if (p.getInventory().getItemInMainHand().getItemMeta().getLore().get(0).equalsIgnoreCase(pl.getChristmas().getItemMeta().getLore().get(0))) {
-                e.getPlayer().sendMessage("2");
-                Random rand = pl.getRandom();
-                int key = pl.getRewards().lastKey();
-                pl.getRewards().values().forEach(item->{
-                    e.getPlayer().sendMessage(item.toString());
-                });
+//        if (e.getHand() == EquipmentSlot.HAND) {
+//            Player p = e.getPlayer();
+//            e.getPlayer().sendMessage(e.getHand() + "");
+//            if (!(e.getRightClicked() instanceof Player)) return;
+//            e.getPlayer().sendMessage("1");
+//            Player at = (Player) e.getRightClicked();
+//            p.sendMessage(pl.getChristmas().toString());
+//            //p.getInventory().setItemInMainHand(pl.getChristmas());
+//            if (p.getInventory().getItemInMainHand().getItemMeta().getLore().get(0).equalsIgnoreCase(pl.getChristmas().getItemMeta().getLore().get(0))) {
+//                e.getPlayer().sendMessage("2");
+//                Random rand = pl.getRandom();
+//                int key = pl.getRewards().lastKey();
+//                pl.getRewards().values().forEach(item->{
+//                    e.getPlayer().sendMessage(item.toString());
+//                });
+//
+//                ItemStack randP = pl.getRewards().ceilingEntry(rand.nextInt(key) + 1).getValue();
+//                ItemStack randAt = pl.getRewards().ceilingEntry(rand.nextInt(key) + 1).getValue();
+//                e.getPlayer().sendMessage("3");
+//                p.getInventory().addItem(randP);
+//                at.getInventory().addItem(randAt);
+//                if (p.getInventory().getItemInMainHand().getAmount() > 1) {
+//                    int d = p.getInventory().getItemInMainHand().getAmount();
+//                    p.getInventory().getItemInMainHand().setAmount(d - 1);
+//                } else {
+//                    p.getInventory().setItemInMainHand(null);
+//                }
+//                e.getPlayer().sendMessage("5");
+//                Firework firework = (Firework) p.getWorld().spawnEntity(p.getLocation(), EntityType.FIREWORK);
+//                FireworkMeta meta = firework.getFireworkMeta();
+//                meta.addEffect(FireworkEffect.builder().trail(false).with(FireworkEffect.Type.BALL_LARGE).withColor(Color.GREEN).withFade(Color.RED).build());
+//                e.getPlayer().sendMessage("6");
+//                firework.setFireworkMeta(meta);
+//                Bukkit.getScheduler().scheduleSyncDelayedTask(pl, new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        firework.detonate();
+//                    }
+//                }, 2L);
+//                e.getPlayer().sendMessage("7");
+//
+//            }
+//        }
 
-                ItemStack randP = pl.getRewards().ceilingEntry(rand.nextInt(key) + 1).getValue();
-                ItemStack randAt = pl.getRewards().ceilingEntry(rand.nextInt(key) + 1).getValue();
-                e.getPlayer().sendMessage("3");
-                p.getInventory().addItem(randP);
-                at.getInventory().addItem(randAt);
-                if (p.getInventory().getItemInMainHand().getAmount() > 1) {
-                    int d = p.getInventory().getItemInMainHand().getAmount();
-                    p.getInventory().getItemInMainHand().setAmount(d - 1);
-                } else {
-                    p.getInventory().setItemInMainHand(null);
-                }
-                e.getPlayer().sendMessage("5");
-                Firework firework = (Firework) p.getWorld().spawnEntity(p.getLocation(), EntityType.FIREWORK);
-                FireworkMeta meta = firework.getFireworkMeta();
-                meta.addEffect(FireworkEffect.builder().trail(false).with(FireworkEffect.Type.BALL_LARGE).withColor(Color.GREEN).withFade(Color.RED).build());
-                e.getPlayer().sendMessage("6");
-                firework.setFireworkMeta(meta);
-                Bukkit.getScheduler().scheduleSyncDelayedTask(pl, new Runnable() {
-                    @Override
-                    public void run() {
-                        firework.detonate();
-                    }
-                }, 2L);
-                e.getPlayer().sendMessage("7");
-
-            }
-        }
     }
 }
