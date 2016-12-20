@@ -21,10 +21,10 @@ public class ChristmasCracker extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        initItems();
-        initChristmasCracker();
-        initListener();
-        initCommands();
+//        initItems();
+//        initChristmasCracker();
+//        initListener();
+//        initCommands();
     }
     public void initItems(){
         rewards.clear();

@@ -1,13 +1,12 @@
 rewards:
-  a:
-    name: Reward One
-    lore:
-    - Reward
-    durability: -1
-    unbreakable: true
-    amount: 10
-    type: DIAMOND
-    chance: 50
+  1:
+    claim-msg: "&aYou have been goofed gg"
+    commands:
+    - say nayoshi12
+  2:
+    claim-msg: "&cYou have been goofed gg"
+    commands:
+    - say potato
 christmascracker:
   name: ""
   lore:
