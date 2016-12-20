@@ -1,0 +1,7 @@
+name: ChristmasCracker
+version: 1.0
+main: com.nayoshi12.christmasCracker.ChristmasCracker
+authors: ['nayoshi12','redrield']
+commands:
+  christmascracker:
+

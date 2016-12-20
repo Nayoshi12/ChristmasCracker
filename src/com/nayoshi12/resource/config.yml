@@ -1,0 +1,17 @@
+rewards:
+  a:
+    name: Reward One
+    lore:
+    - Reward
+    durability: -1
+    unbreakable: true
+    amount: 10
+    type: DIAMOND
+    chance: 50
+christmascracker:
+  name: ""
+  lore:
+  - ""
+  durability: -1
+  type: DIAMOND_PICKAXE
+  unbreakable: true
