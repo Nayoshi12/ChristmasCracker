@@ -45,7 +45,7 @@ class MainExecutor(val plugin: ChristmasCracker) : CommandExecutor {
                         val name = TextComponent("${ChatColor.GREEN}${ChatColor.BOLD}Redrield")
                         name.clickEvent = ClickEvent(ClickEvent.Action.OPEN_URL, "https://redrield.com")
                         text.addExtra(name)
-                        cs.sendMessage(text)
+                        cs.spigot().sendMessage(text)
                         cs.sendMessage("${ChatColor.GREEN}${ChatColor.STRIKETHROUGH}-------------------------")
                     }
                 }
