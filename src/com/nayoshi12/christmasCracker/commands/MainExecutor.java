@@ -3,7 +3,8 @@ package com.nayoshi12.christmasCracker.commands;
 import com.nayoshi12.christmasCracker.ChristmasCracker;
 import com.nayoshi12.christmasCracker.commands.subcommands.GiveItemCommand;
 import com.nayoshi12.christmasCracker.commands.subcommands.PluginReloadCommand;
-import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.*;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -38,12 +39,12 @@ public class MainExecutor implements CommandExecutor{
             } else {
                 if(sender instanceof Player) {
                     sender.sendMessage(""+ ChatColor.GREEN +""+ ChatColor.STRIKETHROUGH +"-------------------------");
-                    String text = (ChatColor.GREEN + "Made with love by ");
-
-                    String name = ChatColor.GREEN + ""+ ChatColor.BOLD+"Redrield and Nayoshi";
+                    TextComponent text = new TextComponent(ChatColor.GREEN + "Made with love by ");
+                    TextComponent name = new TextComponent(ChatColor.GREEN + "" + ChatColor.BOLD + "Redrield and Nayoshi12");
                     ClickEvent same = new ClickEvent(ClickEvent.Action.OPEN_URL, "https://redrield.com");
-                    text += name;
-                    sender.sendMessage(text);
+                    name.setClickEvent(same);
+                    text.addExtra(name);
+                    ((Player) sender).spigot().sendMessage(text);
                     sender.sendMessage(ChatColor.GREEN + "" + ChatColor.STRIKETHROUGH + "-------------------------");
                 }
             }

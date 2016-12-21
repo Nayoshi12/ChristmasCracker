@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Created by Matthew on 12/20/2016.
@@ -18,38 +19,25 @@ public class RewardManager {
     private ChristmasCracker pl;
     private FileConfiguration config;
     private List<Reward> rewards = new ArrayList<>();
-    private List<List<Reward>> chancesList = new ArrayList<>();
+    private TreeMap<Integer,Reward> chanceRewards = new TreeMap<>();
 
     public RewardManager(ChristmasCracker pl){
         this.pl = pl;
         this.config = pl.getConfig();
         Set<String> rewardsStrings  = config.getConfigurationSection("rewards").getKeys(false);
+
         for(String rewardString:rewardsStrings){
             Reward reward = new Reward(pl,rewardString);
             rewards.add(reward);
         }
-    for(int i =1;i<10;i++){
-        chancesList.add(new ArrayList<>());
         for(Reward reward:rewards){
-            double d = (double)reward.getChance();
-            d /= 10;
-            d = Math.floor(d);
-            int c = (int)d;
-            c *= 10;
-            if((i*10)>c)
-                chancesList.get(i-1).add(reward);
+            chanceRewards.put(reward.getChance(),reward);
         }
 
     }
-
-    }
-    public List<Reward> getRewards(int chance){
-        for(int i = 1; i<10;i++){
-            if(chance <= (i*10)){
-                return chancesList.get(i-1);
-            }
-        }
-        return null;
+    public Reward getRandomReward(){
+        int key = chanceRewards.lastKey();
+        return chanceRewards.ceilingEntry(pl.getRandom().nextInt(key)+1).getValue();
     }
     public List<Reward> getAllRewards(){
         return rewards;

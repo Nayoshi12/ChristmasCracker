@@ -40,25 +40,21 @@ public class PlayerClickHandler implements Listener {
             Player at = (Player) e.getRightClicked();
             pl.sendMessage(e.getPlayer(), "You clicked on " + at.getName() + "!");
             pl.sendMessage(at, "You were clicked by " + e.getPlayer().getName() + "!");
-            if(!pl.getcCracker().toItemStack().isSimilar(player.getInventory().getItemInMainHand())) return;
+            if ((!pl.getcCracker().toItemStack().isSimilar(player.getInventory().getItemInMainHand()))||
+                    (!player.getInventory().getItemInMainHand().getItemMeta().getLore().get(0).equalsIgnoreCase(pl.getcCracker().getLore().get(0))))
+                return;
             pl.sendMessage(e.getPlayer(), pl.getcCracker().toItemStack().isSimilar(player.getInventory().getItemInMainHand()) + "");
-            List<Reward> rewards = pl.getRewardManager().getAllRewards();
-//            int randomB = pl.getRandom().nextInt(rewards.size()+1);
-//            int randomA = pl.getRandom().nextInt(rewards.size());
-//
-//            pl.sendMessage(player, randomNumber() + "");
-//            List<Reward> a1 = pl.getRewardManager().getRewards(randomNumber());
-//            List<Reward> a2 = pl.getRewardManager().getRewards(randomNumber());
-//            a1.get(pl.getRandom().nextInt(a1.size())).giveReward(player);
-//            a2.get(pl.getRandom().nextInt(a2.size())).giveReward(at);
-            rewards.get(pl.getRandom().nextInt(rewards.size())).giveReward(player);
-            rewards.get(pl.getRandom().nextInt(rewards.size())).giveReward(at);
             if (p.getInventory().getItemInMainHand().getAmount() > 1) {
                 int d = p.getInventory().getItemInMainHand().getAmount();
                 p.getInventory().getItemInMainHand().setAmount(d - 1);
             } else {
                 p.getInventory().setItemInMainHand(null);
             }
+            pl.getRewardManager().getRandomReward().giveReward(player);
+            pl.getRewardManager().getRandomReward().giveReward(at);
+
+
+
             Firework firework = (Firework) p.getWorld().spawnEntity(p.getLocation(), EntityType.FIREWORK);
             FireworkMeta meta = firework.getFireworkMeta();
             meta.addEffect(FireworkEffect.builder().trail(false).with(FireworkEffect.Type.BALL_LARGE).withColor(Color.GREEN).withFade(Color.RED).build());
