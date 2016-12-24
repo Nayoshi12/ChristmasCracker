@@ -27,7 +27,6 @@ public class GiveItemCommand extends SubCommand {
 
     @Override
     public void execute(CommandSender cs, String[] args) {
-        if (!(cs instanceof Player)) return;
 //        pl.sendMessage(cs,"You got it boss");
 //        Player player = (Player)cs;
 //        player.getInventory().addItem(pl.getcCracker().toItemStack());

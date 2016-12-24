@@ -2,14 +2,14 @@ package com.nayoshi12.christmasCracker.events;
 
 import com.nayoshi12.christmasCracker.ChristmasCracker;
 import com.nayoshi12.christmasCracker.Reward;
-import org.bukkit.Bukkit;
-import org.bukkit.Color;
-import org.bukkit.FireworkEffect;
+import org.bukkit.*;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -25,6 +25,7 @@ import java.util.Random;
 public class PlayerClickHandler implements Listener {
     ChristmasCracker pl;
 
+
     public PlayerClickHandler(ChristmasCracker pl) {
         this.pl = pl;
     }
@@ -33,47 +34,53 @@ public class PlayerClickHandler implements Listener {
     public void onPlayerClick(PlayerInteractAtEntityEvent e) {
 
         if (e.getHand() == EquipmentSlot.HAND) {
-            Player p = e.getPlayer();
-            e.getPlayer().sendMessage(e.getHand() + "");
             if (!(e.getRightClicked() instanceof Player)) return;
             Player player = e.getPlayer();
             Player at = (Player) e.getRightClicked();
-            pl.sendMessage(e.getPlayer(), "You clicked on " + at.getName() + "!");
-            pl.sendMessage(at, "You were clicked by " + e.getPlayer().getName() + "!");
             if ((!pl.getcCracker().toItemStack().isSimilar(player.getInventory().getItemInMainHand()))||
                     (!player.getInventory().getItemInMainHand().getItemMeta().getLore().get(0).equalsIgnoreCase(pl.getcCracker().getLore().get(0))))
                 return;
-            pl.sendMessage(e.getPlayer(), pl.getcCracker().toItemStack().isSimilar(player.getInventory().getItemInMainHand()) + "");
-            if (p.getInventory().getItemInMainHand().getAmount() > 1) {
-                int d = p.getInventory().getItemInMainHand().getAmount();
-                p.getInventory().getItemInMainHand().setAmount(d - 1);
-            } else {
-                p.getInventory().setItemInMainHand(null);
-            }
-            pl.getRewardManager().getRandomReward().giveReward(player);
-            pl.getRewardManager().getRandomReward().giveReward(at);
-
-
-
-            Firework firework = (Firework) p.getWorld().spawnEntity(p.getLocation(), EntityType.FIREWORK);
-            FireworkMeta meta = firework.getFireworkMeta();
-            meta.addEffect(FireworkEffect.builder().trail(false).with(FireworkEffect.Type.BALL_LARGE).withColor(Color.GREEN).withFade(Color.RED).build());
-            e.getPlayer().sendMessage("6");
-            firework.setFireworkMeta(meta);
-            Bukkit.getScheduler().scheduleSyncDelayedTask(pl, new Runnable() {
-                @Override
-                public void run() {
-                    firework.detonate();
-                }
-            }, 3L);
-
+            pl.getServer().getPluginManager().callEvent(new OpenCrackerEvent(at,player));
         }
     }
+    @EventHandler
+    public void onDamage(EntityDamageEvent e){
+        if(e.isCancelled())
+            return;
+        if(e.getCause() == EntityDamageEvent.DamageCause.BLOCK_EXPLOSION){
+            if(e.getDamage() <= 7 && e.getDamage() >= 4){
+                e.setCancelled(true);
+            }
+        }
 
-    private int randomNumber() {
-        double meth = Math.floor(10 * pl.getRandom().nextDouble());
-        int mee = (int) meth;
-        mee *= 10;
-        return mee;
+
     }
+    @EventHandler
+    public void openCracker(OpenCrackerEvent event){
+        Player player = event.getPlayerFrom();
+        Player at = event.getPlayerTarget();
+        if (player.getInventory().getItemInMainHand().getAmount() > 1) {
+            int d = player.getInventory().getItemInMainHand().getAmount();
+            player.getInventory().getItemInMainHand().setAmount(d - 1);
+        } else {
+            player.getInventory().setItemInMainHand(null);
+        }
+        pl.getRewardManager().getRandomReward().giveReward(player);
+        pl.getRewardManager().getRandomReward().giveReward(at);
+        pl.sendMessage(player,"You have shared Christmas Cracker with "+ ChatColor.GOLD + "" + at.getName() + ChatColor.GREEN + "!");
+        pl.sendMessage(at,ChatColor.GOLD + player.getName() + ChatColor.GREEN + " has shared Christmas Cracker with you! :D");
+        Firework firework = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
+        FireworkMeta meta = firework.getFireworkMeta();
+        meta.addEffect(FireworkEffect.builder().trail(false).with(FireworkEffect.Type.BALL_LARGE).withColor(Color.GREEN).withFade(Color.RED).build());
+        firework.setFireworkMeta(meta);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(pl, new Runnable() {
+            @Override
+            public void run() {
+                firework.detonate();
+
+            }
+        }, 3L);
+
+    }
+
 }

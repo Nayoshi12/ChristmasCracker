@@ -4,4 +4,5 @@ main: com.nayoshi12.christmasCracker.ChristmasCracker
 authors: ['nayoshi12','redrield']
 commands:
   christmascracker:
+    aliases: [cc,ccracker,christmasc]
 

@@ -29,6 +29,7 @@ public class PluginReloadCommand extends SubCommand {
     public void execute(CommandSender cs, String[] args) {
         if(cs.hasPermission("christmascracker.reload")) {
             pl.reloadConfig();
+            pl.saveDefaultConfig();
             pl.sendMessage(cs,"The config has been reloaded!");
         }else {
             pl.sendMessage(cs,"You don't have permission to use this command");
